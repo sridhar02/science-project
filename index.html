@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Camera App</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row mt-5" id="loginSection">
+        <div class="col-md-12 text-center">
+            <input type="password" id="passwordInput" placeholder="Enter Password">
+            <button id="loginButton" class="btn btn-primary">Login</button>
+        </div>
+    </div>
+    <div class="row mt-3" id="cameraSection" style="display:none;">
+        <div class="col-md-12 text-center">
+            <video id="cameraStream" width="320" height="240" autoplay></video>
+            <button id="captureButton" class="btn btn-success">Capture</button>
+            <!-- Image Preview Container -->
+            <img id="imagePreview" src="" alt="Image Preview" style="display:none;"/>
+            <!-- Send Button -->
+            <button id="sendButton" class="btn btn-info" style="display:none;">Send</button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <pre id="apiResponse"></pre>
+        </div>
+    </div>
+    <img src="http://localhost:8787/f97f2c73-d894-4839-aa60-3a7518437332" alt="">
+</div>
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="index.js"></script>
+</body>
+</html>
