@@ -19,11 +19,12 @@ if (window.DeviceMotionEvent == undefined) {
 function accelerometerUpdate(event) {
   console.log({ x: event.acceleration.x, y: event.acceleration.y });
 
-  var aX = handleAccle(event.acceleration.x);
-  var aY = handleAccle(event.acceleration.y);
-  var aZ = handleAccle(event.acceleration.z);
+  var aX = clampValue(event.acceleration.x);
+  var aY = clampValue(event.acceleration.y);
+  var aZ = clampValue(event.acceleration.z);
 
   updateGraphs({ x: aX, y: aY, z: aZ });
+  document.getElementById("interval").innerHTML = event.interval;
 }
 
 // Mock accelerometer data
@@ -40,7 +41,7 @@ function generateMockAccelerometerData() {
   return mockData;
 }
 
-function handleAccle(value) {
+function clampValue(value) {
   if (value < 0.2 && value > -0.2) {
     return 0;
   }
