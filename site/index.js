@@ -73,8 +73,8 @@ document.getElementById("captureButton").addEventListener("click", function () {
 
 document.getElementById("sendButton").addEventListener("click", function () {
   var canvas = document.createElement("canvas");
-  canvas.width = 320;
-  canvas.height = 240;
+  canvas.width = 1024;
+  canvas.height = 720;
   canvas
     .getContext("2d")
     .drawImage(
@@ -109,7 +109,7 @@ function sendImageToAPI(imageBlob) {
     .then((response) => response.json())
     .then((data) => {
       document.getElementById("apiResponse").innerText = JSON.stringify(
-        data,
+        data.content,
         null,
         2
       );
