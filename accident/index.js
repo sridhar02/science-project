@@ -7,12 +7,8 @@ const timeOut = 100;
 
 if (window.DeviceMotionEvent == undefined) {
   //No accelerometer is present. Use buttons.
-  document.querySelector("#acc").textContent = "NO";
-  document.querySelector("#acc").className = "no";
+  console.log("No accelerometer present");
 } else {
-  document.querySelector("#acc").textContent = "YES";
-  document.querySelector("#acc").className = "yes";
-
   window.addEventListener(
     "devicemotion",
     _.throttle(accelerometerUpdate, timeOut),
@@ -70,7 +66,6 @@ function updateGraphs(data) {
 // setInterval(() => {
 //   const mockData = generateMockAccelerometerData();
 //   accelerometerUpdate({ acceleration: mockData.acceleration });
-//   console.log({ mockData });
 //   updateGraphs(mockData.acceleration);
 // }, 1000);
 
