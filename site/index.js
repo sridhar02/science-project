@@ -77,7 +77,7 @@ document.getElementById("sendButton").addEventListener("click", function () {
   }, "image/jpeg");
 });
 
-const API = "http://localhost:8787";
+const API = "https://api.sridhar02.workers.dev";
 
 function sendImageToAPI(imageBlob) {
   const uuid = self.crypto.randomUUID();
