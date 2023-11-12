@@ -87,6 +87,7 @@ function sendImageToAPI(imageBlob) {
   fetch(`${API}/${uuid}`, {
     method: "PUT",
     body: imageBlob,
+    mode: "cors",
   })
     .then((response) => response.json())
     .then((data) => {
