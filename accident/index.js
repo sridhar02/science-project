@@ -20,9 +20,9 @@ function accelerometerUpdate(event) {
   console.log({ x: event.acceleration.x, t: event.time });
   let time = (event.time || 16) / 1000;
 
-  var aX = event.acceleration.x * time;
-  var aY = event.acceleration.y * time;
-  var aZ = event.acceleration.z * time;
+  var aX = clampValue(event.acceleration.x * time);
+  var aY = clampValue(event.acceleration.y * time);
+  var aZ = clampValue(event.acceleration.z * time);
 
   updateGraphs({ x: aX, y: aY, z: aZ });
   document.getElementById("interval").innerHTML = event.interval;
