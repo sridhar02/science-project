@@ -17,11 +17,12 @@ if (window.DeviceMotionEvent == undefined) {
 }
 
 function accelerometerUpdate(event) {
-  console.log({ x: event.acceleration.x, y: event.acceleration.y });
+  console.log({ x: event.acceleration.x, t: event.time });
+  let time = event.time || 16;
 
-  var aX = clampValue(event.acceleration.x);
-  var aY = clampValue(event.acceleration.y);
-  var aZ = clampValue(event.acceleration.z);
+  var aX = event.acceleration.x * time;
+  var aY = event.acceleration.y * time;
+  var aZ = event.acceleration.z * time;
 
   updateGraphs({ x: aX, y: aY, z: aZ });
   document.getElementById("interval").innerHTML = event.interval;
@@ -47,6 +48,9 @@ function clampValue(value) {
   }
   return value;
 }
+let x = 0,
+  y = 0,
+  z = 0;
 
 function updateGraphs(data) {
   time = time + timeOut;
@@ -54,13 +58,17 @@ function updateGraphs(data) {
   yOption.xAxis.data.push(time);
   zOption.xAxis.data.push(time);
 
-  xOption.series[0].data.push(data.x);
+  x += data.x;
+  y += data.y;
+  z += data.z;
+
+  xOption.series[0].data.push(x);
   xOption && chartX.setOption(xOption);
 
-  yOption.series[0].data.push(data.y);
+  yOption.series[0].data.push(y);
   yOption && chartY.setOption(yOption);
 
-  zOption.series[0].data.push(data.z);
+  zOption.series[0].data.push(z);
   zOption && chartZ.setOption(zOption);
 }
 
