@@ -88,6 +88,10 @@ function sendImageToAPI(imageBlob) {
     method: "PUT",
     body: imageBlob,
     mode: "cors",
+    headers: {
+      "content-type": "application/octet-stream",
+      accept: "application/json",
+    },
   })
     .then((response) => response.json())
     .then((data) => {
