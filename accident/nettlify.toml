@@ -1,1 +1,4 @@
-
+[[headers]]
+for = "/*"
+[headers.values]
+Permissions-Policy:"accelerometer=*"
