@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Check if the password is already stored in local storage
   if (localStorage.getItem("password") === "1234") {
-    // Replace with your actual password
     showCameraSection();
     hideLoginSection();
   }
@@ -10,9 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
 document.getElementById("loginButton").addEventListener("click", function () {
   var password = document.getElementById("passwordInput").value;
   if (password === "1234") {
-    // Replace with your actual password
     localStorage.setItem("password", password);
-    hideLoginSection(); // Store the password in local storage
+    hideLoginSection();
     showCameraSection();
   } else {
     alert("Incorrect Password!");
@@ -53,7 +50,7 @@ document.getElementById("captureButton").addEventListener("click", function () {
     var url = URL.createObjectURL(blob);
     document.getElementById("imagePreview").src = url;
     document.getElementById("imagePreview").style.display = "block";
-    video.style.display = "none"; // Hide the video element
+    video.style.display = "none";
     document.getElementById("sendButton").style.display = "block";
   }, "image/jpeg");
 });
@@ -73,7 +70,7 @@ document.getElementById("sendButton").addEventListener("click", function () {
     );
   canvas.toBlob(function (blob) {
     sendImageToAPI(blob);
-    startCamera(); // Restart camera preview after sending the image
+    startCamera();
   }, "image/jpeg");
 });
 
