@@ -30,12 +30,12 @@ function startCamera() {
     .getUserMedia({
       video: {
         width: {
-          min: 1280,
+          min: 1920,
           ideal: 1920,
           max: 2560,
         },
         height: {
-          min: 720,
+          min: 1080,
           ideal: 1080,
           max: 1440,
         },
@@ -58,8 +58,8 @@ function startCamera() {
 document.getElementById("captureButton").addEventListener("click", function () {
   var video = document.getElementById("cameraStream");
   var canvas = document.createElement("canvas");
-  canvas.width = 1024;
-  canvas.height = 720;
+  canvas.width = 2560;
+  canvas.height = 1440;
   canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
 
   canvas.toBlob(function (blob) {
@@ -73,8 +73,8 @@ document.getElementById("captureButton").addEventListener("click", function () {
 
 document.getElementById("sendButton").addEventListener("click", function () {
   var canvas = document.createElement("canvas");
-  canvas.width = 1024;
-  canvas.height = 720;
+  canvas.width = 2560;
+  canvas.height = 1440;
   canvas
     .getContext("2d")
     .drawImage(
