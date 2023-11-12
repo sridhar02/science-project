@@ -58,8 +58,8 @@ function startCamera() {
 document.getElementById("captureButton").addEventListener("click", function () {
   var video = document.getElementById("cameraStream");
   var canvas = document.createElement("canvas");
-  canvas.width = 320;
-  canvas.height = 240;
+  canvas.width = 1024;
+  canvas.height = 720;
   canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
 
   canvas.toBlob(function (blob) {
