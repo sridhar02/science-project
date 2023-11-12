@@ -2,6 +2,9 @@ var xChart = echarts.init(document.getElementById("x-chart"));
 var yChart = echarts.init(document.getElementById("y-chart"));
 var zChart = echarts.init(document.getElementById("z-chart"));
 
+const clearButton = document.getElementById("clear");
+const timeOut = 300;
+
 if (window.DeviceMotionEvent == undefined) {
   //No accelerometer is present. Use buttons.
   document.querySelector("#acc").textContent = "NO";
@@ -12,7 +15,7 @@ if (window.DeviceMotionEvent == undefined) {
 
   window.addEventListener(
     "devicemotion",
-    _.throttle(accelerometerUpdate, 1000),
+    _.throttle(accelerometerUpdate, timeOut),
     true
   );
 }
@@ -52,7 +55,7 @@ function generateMockAccelerometerData() {
 }
 
 function updateGraphs(data) {
-  time = time + 1000;
+  time = time + timeOut;
   xOption.xAxis.data.push(time);
   yOption.xAxis.data.push(time);
   zOption.xAxis.data.push(time);
@@ -70,8 +73,9 @@ function updateGraphs(data) {
 // setInterval(() => {
 //   const mockData = generateMockAccelerometerData();
 //   accelerometerUpdate({ acceleration: mockData.acceleration });
+//   console.log({ mockData });
 //   updateGraphs(mockData.acceleration);
-// }, 1000); // Update every 1000 ms (1 second)
+// }, 1000);
 
 var xChart = document.getElementById("x-chart");
 var chartX = echarts.init(xChart);
@@ -83,7 +87,7 @@ var zChart = document.getElementById("z-chart");
 var chartZ = echarts.init(zChart);
 
 var xOption, yOption, zOption;
-let time = 0;
+let time = timeOut;
 
 xOption = {
   xAxis: {
@@ -136,3 +140,19 @@ zOption = {
 xOption && chartX.setOption(xOption);
 yOption && chartY.setOption(yOption);
 zOption && chartZ.setOption(zOption);
+
+clearButton.addEventListener("click", function () {
+  time = 0;
+  xOption.xAxis.data = [];
+  yOption.xAxis.data = [];
+  zOption.xAxis.data = [];
+
+  xOption.series[0].data = [];
+  xOption && chartX.setOption(xOption);
+
+  yOption.series[0].data = [];
+  yOption && chartY.setOption(yOption);
+
+  zOption.series[0].data = [];
+  zOption && chartZ.setOption(zOption);
+});
