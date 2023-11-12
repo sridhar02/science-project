@@ -48,6 +48,7 @@ function handleAccle(value) {
   if (value < 0.2 && value > -0.2) {
     return 0;
   }
+  return value;
 }
 
 function updateGraphs(data) {
