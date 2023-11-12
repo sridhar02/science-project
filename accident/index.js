@@ -18,7 +18,7 @@ if (window.DeviceMotionEvent == undefined) {
 
 function accelerometerUpdate(event) {
   console.log({ x: event.acceleration.x, t: event.time });
-  let time = event.time || 16;
+  let time = (event.time || 16) / 1000;
 
   var aX = event.acceleration.x * time;
   var aY = event.acceleration.y * time;
