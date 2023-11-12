@@ -3,7 +3,7 @@ var yChart = echarts.init(document.getElementById("y-chart"));
 var zChart = echarts.init(document.getElementById("z-chart"));
 
 const clearButton = document.getElementById("clear");
-const timeOut = 300;
+const timeOut = 100;
 
 if (window.DeviceMotionEvent == undefined) {
   //No accelerometer is present. Use buttons.
@@ -23,21 +23,11 @@ if (window.DeviceMotionEvent == undefined) {
 function accelerometerUpdate(event) {
   console.log({ x: event.acceleration.x, y: event.acceleration.y });
 
-  var aX = event.acceleration.x;
-  var aY = event.acceleration.y;
-  var aZ = event.acceleration.z;
+  var aX = handleAccle(event.acceleration.x);
+  var aY = handleAccle(event.acceleration.y);
+  var aZ = handleAccle(event.acceleration.z);
 
-  document.querySelector("#x").value = aX;
-  document.querySelector("#y").value = aY;
-  document.querySelector("#z").value = aZ;
-
-  updateGraphs(event.acceleration);
-
-  // If aY is negative, switch rotation
-  if (aY < 0) {
-    aX = -aX - 180;
-  }
-  document.querySelector("#block").style.transform = "rotate(" + aX + "deg)";
+  updateGraphs({ x: aX, y: aY, z: aZ });
 }
 
 // Mock accelerometer data
@@ -52,6 +42,12 @@ function generateMockAccelerometerData() {
   };
 
   return mockData;
+}
+
+function handleAccle(value) {
+  if (value < 0.2 && value > -0.2) {
+    return 0;
+  }
 }
 
 function updateGraphs(data) {
