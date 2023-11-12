@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accelerometer API Example</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        #acceleration-values {
-            font-size: 24px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Accelerometer API Example</h1>
-    <div id="acceleration-values">
-        <p>X-Axis: <span id="x-value">0</span></p>
-        <p>Y-Axis: <span id="y-value">0</span></p>
-        <p>Z-Axis: <span id="z-value">0</span></p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+	<link rel="stylesheet" href="./index.css">
+  </head>
+  <body>
+    <h1>HTML5 Accelerometer</h1>
+
+    <section>
+      Accelerometer detected? <span id="acc"></span><br />
+      alpha X: <input type="text" readonly id="x" value="" /><br />
+      alpha Y: <input type="text" readonly id="y" value="" /><br />
+      alpha Z: <input type="text" readonly id="z" value="" /><br />
+    </section>
+
+    <div id="block">↑</div>
+
+    <div id="charts">
+      <h1>Charts</h1>
+      <div class="chart" id="x-chart"></div>
+      <div class="chart" id="y-chart"></div>
+      <div class="chart" id="z-chart"></div>
     </div>
-    <script src="index.js"></script>
-</body>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+	<script src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+	<script src="index.js"></script>
+  </body>
 </html>
