@@ -2,8 +2,8 @@ name = "api"
 main = "src/index.js"
 compatibility_date = "2023-10-30"
 
-account_id = "a2cd7136c06982d1a4bd91fd27bc3267" # ← Replace with your Account ID.
-workers_dev = false
+account_id = "a2cd7136c06982d1a4bd91fd27bc3267"
+workers_dev = true
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables)
 # Note: Use secrets to store sensitive data.

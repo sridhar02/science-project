@@ -16,16 +16,15 @@
     </div>
     <div class="row mt-3" id="cameraSection" style="display:none;">
         <div class="col-md-12 text-center">
-            <video id="cameraStream" width="720" height="1024" autoplay></video>
-            <button id="captureButton" class="btn btn-success">Capture</button>
-            <!-- Image Preview Container -->
+            <input type="file" id="avatar" accept="image/png, image/jpeg"  />
             <img id="imagePreview" src="" width="720" height="1024" alt="Image Preview" style="display:none;"/>
             <!-- Send Button -->
-            <button id="sendButton" class="btn btn-info" style="display:none;">Send</button>
+            <button id="sendButton" class="btn btn-info">Send</button>
         </div>
     </div>
     <div class="row mt-3">
             <div id="apiResponse"></pre>
+        </div>
     </div>
 </div>
     <!-- Include jQuery and Bootstrap JS -->
