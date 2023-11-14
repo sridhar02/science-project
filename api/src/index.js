@@ -138,7 +138,7 @@ const handleOpenAIResponse = async (imageURL, openai) => {
 				],
 			},
 		],
-		max_tokens: 100,
+		max_tokens: 4000,
 	});
 
 	const response = chatCompletion.choices[0].message;

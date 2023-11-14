@@ -24,14 +24,11 @@ document.getElementById("sendButton").addEventListener("click", function () {
   const input = document.getElementById("avatar");
 
   const file = input.files[0];
-  console.log(file);
 
   const fileReader = new FileReader();
   fileReader.onload = function (event) {
     // This is the file content
-    console.log({ event });
     const fileContent = event.target.result;
-    console.log(fileContent);
     sendImageToAPI(new Blob([fileContent]));
   };
   fileReader.onerror = function () {
@@ -44,8 +41,7 @@ const API = "https://api.sridhar02.workers.dev";
 
 function sendImageToAPI(imageBlob) {
   const uuid = self.crypto.randomUUID();
-
-  console.log({ uuid });
+  document.getElementById("loader").classList.remove("d-none");
 
   fetch(`${API}/${uuid}`, {
     method: "PUT",
@@ -58,14 +54,15 @@ function sendImageToAPI(imageBlob) {
   })
     .then((response) => response.json())
     .then((data) => {
-      document.getElementById("apiResponse").innerText = JSON.stringify(
-        data.content,
-        null,
-        2
+      document.getElementById("loader").classList.add("d-none");
+      document.getElementById("avatar").value = null;
+      document.getElementById("apiResponse").innerHTML = marked.parse(
+        data.content
       );
     })
     .catch((error) => {
       console.error("Error:", error);
       document.getElementById("apiResponse").innerText = "Error: " + error;
+      document.getElementById("loader").classList.add("d-none");
     });
 }
