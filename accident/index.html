@@ -1,26 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-	<link rel="stylesheet" href="./index.css">
-  </head>
-  <body>
-    <h1>Accelerometer</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECharts Line Chart</title>
+    <!-- ECharts Library -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
 
-    <button id="clear">clear</button>
-    <div id="interval"></div>
 
-    <div id="charts">
-      <h1>Charts</h1>
-      <div class="chart" id="x-chart"></div>
-      <div class="chart" id="y-chart"></div>
-      <div class="chart" id="z-chart"></div>
+        .title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+
+        #main {
+            width: 90%;
+            max-width: 600px;
+            height: 400px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Smart Accident Alerts</div>
+    <div id="main"></div>
+    <div>
+        <button id="startButton">Start</button>
+        <button id="stopButton">Stop</button>
+        <button id="accidentButton">Accident</button>
     </div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-	<script src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-	<script src="index.js"></script>
-  </body>
+    <!-- Your JavaScript File -->
+    <script src="index.js"></script>
+</body>
 </html>
