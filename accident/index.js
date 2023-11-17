@@ -1,91 +1,128 @@
-let chart = echarts.init(document.getElementById('main'));
+let chart = echarts.init(document.getElementById("main"));
 
 // Initialize x-axis data up to 5 seconds
 let initialXAxisData = [];
 for (let i = 0; i <= 5000; i += 100) {
-    initialXAxisData.push(i);
+  initialXAxisData.push(i);
 }
 
 let option = {
-    xAxis: {
-        type: 'category',
-        data: initialXAxisData
+  xAxis: {
+    type: "category",
+    data: initialXAxisData,
+  },
+  yAxis: {
+    type: "value",
+    min: 0,
+    max: 50, // Maximum value for Y-axis
+  },
+  series: [
+    {
+      data: [],
+      type: "line",
     },
-    yAxis: {
-        type: 'value',
-        min: 0,
-        max: 50 // Maximum value for Y-axis
-    },
-    series: [{
-        data: [],
-        type: 'line'
-    }]
+  ],
 };
 
 let timeCounter, speed, isStopping, isUpdating, timeoutId;
 
 function resetData() {
-    timeCounter = 0; // Reset time to 0
-    speed = 0;
-    isStopping = false;
-    isUpdating = false;
-    option.xAxis.data = initialXAxisData.slice(0);
-    option.series[0].data = [];
-    chart.setOption(option, true);
+  timeCounter = 0; // Reset time to 0
+  speed = 0;
+  isStopping = false;
+  isUpdating = false;
+  option.xAxis.data = initialXAxisData.slice(0);
+  option.series[0].data = [];
+  chart.setOption(option, true);
 }
+
+navigator.geolocation.getCurrentPosition(async (position) => {
+  console.log(position.coords);
+});
 
 resetData();
 
-document.getElementById('startButton').addEventListener('click', function() {
-    resetData();
-    isUpdating = true;
-    updateChart();
+async function sendCrash() {
+  const params = new Promise((resolve) => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      resolve(position.coords);
+    });
+  });
+  const { latitude, longitude } = await params;
+
+  let headersList = {
+    Accept: "*/*",
+    "Content-Type": "application/json",
+  };
+
+  let bodyContent = JSON.stringify({
+    latitude,
+    longitude,
+  });
+
+  let response = await fetch("https://lightsail.vramana.com/send_crash_msg", {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList,
+  });
+
+  let data = await response.text();
+  console.log(data);
+}
+
+document.getElementById("startButton").addEventListener("click", function () {
+  resetData();
+  isUpdating = true;
+  updateChart();
 });
 
-document.getElementById('stopButton').addEventListener('click', function() {
-    isStopping = true;
+document.getElementById("stopButton").addEventListener("click", function () {
+  isStopping = true;
 });
 
-document.getElementById('accidentButton').addEventListener('click', function() {
+document
+  .getElementById("accidentButton")
+  .addEventListener("click", function () {
     speed = 0;
     isUpdating = false; // Stop updating the chart
     if (timeoutId) {
-        clearTimeout(timeoutId); // Clear the timeout when an accident occurs
+      clearTimeout(timeoutId); // Clear the timeout when an accident occurs
     }
     if (option.series[0].data.length > 0) {
-        option.series[0].data[option.series[0].data.length - 1] = 0;
-        chart.setOption(option);
+      option.series[0].data[option.series[0].data.length - 1] = 0;
+      chart.setOption(option);
     }
-});
+    sendCrash();
+  });
 
 function updateChart() {
-    if (!isUpdating) return;
+  if (!isUpdating) return;
 
-    timeoutId = setTimeout(function() {
-        timeCounter += 100;
+  timeoutId = setTimeout(function () {
+    timeCounter += 100;
 
-        if (isStopping) {
-            if (speed > 5) {
-                speed -= Math.random() * 2 + 1;
-            } else {
-                speed = 0;
-                isUpdating = false;
-            }
-        } else {
-            // Increase speed gradually until it reaches 40, then fluctuate between 40 and 60
-            if (speed < 40) {
-                speed += Math.random() * 3 + 1;
-            } else {
-                speed = 40 + Math.random() * 5;
-            }
-        }
+    if (isStopping) {
+      if (speed > 5) {
+        speed -= Math.random() * 2 + 1;
+      } else {
+        speed = 0;
+        isUpdating = false;
+      }
+    } else {
+      // Increase speed gradually until it reaches 40, then fluctuate between 40 and 60
+      if (speed < 40) {
+        speed += Math.random() * 3 + 1;
+      } else {
+        speed = 40 + Math.random() * 5;
+      }
+    }
 
-        option.xAxis.data.push(timeCounter);
-        option.series[0].data.push(speed);
-        chart.setOption(option);
+    option.xAxis.data.push(timeCounter);
+    option.series[0].data.push(speed);
+    chart.setOption(option);
 
-        if (isUpdating) {
-            updateChart();
-        }
-    }, 100);
+    if (isUpdating) {
+      updateChart();
+    }
+  }, 100);
 }
